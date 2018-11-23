@@ -43,7 +43,6 @@ function init(){
     elYearBack.addEventListener('click', function() {
         yearBackClick()
     });
-    changeCellStyle ();
 };
 
 function daysInMonth(month, year) {
@@ -82,10 +81,9 @@ function fillCalendar (year, month, countDays){
         let dateNow = document.createElement('td');
         pushDate.appendChild(dateNow);
         i++;
-    }
+    };
     elWrapDays.appendChild(pushDate);
 };
-
 
 function monthNextClick() {
     if (curMonth != 11) {
@@ -137,7 +135,3 @@ function yearBackClick() {
     fillCalendar(curYear, curMonth, curDaysInMonth);
 };
 
-function changeCellStyle () {
- var cellsWrapper = document.querySelector('.elWrapDays');
- var cellsList = querySelectorAll('.wrapper-date>tbody>tr>td');
-}
