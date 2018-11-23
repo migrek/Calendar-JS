@@ -27,6 +27,7 @@ function init(){
     curDaysInMonth = daysInMonth(curMonth, curYear);
     fillCalendar(curYear, curMonth,curDaysInMonth);
 
+    //functions for changing mounth or yeat
     elMonthNext.addEventListener('click', function() {
         monthNextClick();
     });
@@ -42,10 +43,12 @@ function init(){
     elYearBack.addEventListener('click', function() {
         yearBackClick()
     });
+    changeCellStyle ();
 };
 
 function daysInMonth(month, year) {
-   return new Date(year, month, 0).getDate();
+    month = month + 1;
+    return new Date(year, month, 0).getDate();
 };
 
 function fillCalendar (year, month, countDays){
@@ -56,9 +59,9 @@ function fillCalendar (year, month, countDays){
         let dateNow = document.createElement('td');
         pushDate.appendChild(dateNow);
         i++;
-       } 
+       };
 
-    while (firstDay < countDays) {
+    while (firstDay <= countDays) {
         if (i % 7 == 0) {
             elWrapDays.appendChild(pushDate);
             var pushDate = document.createElement('tr');
@@ -67,12 +70,12 @@ function fillCalendar (year, month, countDays){
             dateNow.innerHTML = firstDay;
             i++;
             firstDay++;
-        }
-        let dateNow = document.createElement('td');
-        pushDate.appendChild(dateNow);
-        dateNow.innerHTML = firstDay;
-        i++;
-        firstDay++;
+        } else {let dateNow = document.createElement('td');
+            pushDate.appendChild(dateNow);
+            dateNow.innerHTML = firstDay;
+            i++;
+            firstDay++;
+        };
     } ;
 
     while ( i % 7 != 0) {
@@ -81,40 +84,25 @@ function fillCalendar (year, month, countDays){
         i++;
     }
     elWrapDays.appendChild(pushDate);
-       
-       
-   
-     /*  if (i % 7 != 0 && firstDay+1<countDays) {
-            let dateNow = document.createElement('td');
-            pushDate.appendChild(dateNow);
-            dateNow.innerHTML = firstDay;
-        i++;} else if (i % 7 == 0) {
-            elWrapDays.appendChild(pushDate);
-            var pushDate = document.createElement('tr');
-            let dateNow = document.createElement('td');
-            pushDate.appendChild(dateNow);
-            dateNow.innerHTML = firstDay;
-            i++;
-        } 
-    };*/
 };
 
 
 function monthNextClick() {
     if (curMonth != 11) {
-    curMonth = curMonth + 1;
-    elWrapDays.innerHTML = '';
-    elMonth.innerHTML = monthsList[curMonth];
-    curDaysInMonth = daysInMonth(curMonth, curYear);
-    fillCalendar(curYear, curMonth,curDaysInMonth)
-    }  else { curMonth = 0;
+        curMonth = curMonth + 1;
+        elWrapDays.innerHTML = '';
+        elMonth.innerHTML = monthsList[curMonth];
+        curDaysInMonth = daysInMonth(curMonth, curYear);
+        fillCalendar(curYear, curMonth,curDaysInMonth)
+    } else { curMonth = 0;
         elMonth.innerHTML = monthsList[curMonth];
         curYear = curYear + 1;
         elYear.innerHTML = curYear;
         elWrapDays.innerHTML = '';
+        curDaysInMonth = daysInMonth(curMonth, curYear);    
         fillCalendar(curYear, curMonth,curDaysInMonth);
-    }
-}
+    };
+};
 
 function monthBackClick() {
     if (curMonth != 0) {
@@ -148,3 +136,8 @@ function yearBackClick() {
     curDaysInMonth = daysInMonth(curMonth, curYear);
     fillCalendar(curYear, curMonth, curDaysInMonth);
 };
+
+function changeCellStyle () {
+ var cellsWrapper = document.querySelector('.elWrapDays');
+ var cellsList = querySelectorAll('.wrapper-date>tbody>tr>td');
+}
