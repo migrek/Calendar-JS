@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+    <title>Calendar</title>
+</head>
+<body class="d-flex">
+    <div class="calendar-wrapper d-flex d-flex-column">
+        <div class="wrapper-year d-flex">
+            <div class="btn-year-back" id="btnYearBack"><</div>
+            <div class="d-flex">
+                <div id="divYear"></div>
+            </div>
+            <div class="btn-year-next" id="btnYearNext">></div>
+        </div>
+
+        <div class="wrapper-month d-flex">
+            <div class="btn-month-back" id="btnMonthBack"><</div>
+            <div class="d-flex">
+                <div id="divMonth"></div>
+            </div>
+            <div class="btn-month-next" id="btnMonthNext">></div>
+        </div>
+        
+       <table class="wrapper-date">
+           <thead>
+               <td>Mon</td>
+               <td>Tues</td>
+               <td>Wedn</td>
+               <td>Thurs</td>
+               <td>Fri</td>
+               <td class="day-off">Satur</td>
+               <td class="day-off">Sun</td>
+           </thead>
+            <tbody id="wrapperDays">
+            </tbody>
+       </table>
+    </div>
+ 
+</body>
+</html>
