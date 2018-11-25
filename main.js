@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', init);
 
 function init(){
-    //lists whith names monthes
+    //lists with names months
     monthsList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     
-    //difine current date
-    var now = new Date();
+    //define current date
+    let now = new Date();
     curYear = now.getFullYear();
     curMonth = now.getMonth();
     curDay = now.getDay();
     curDate = now.getDate();
 
-    //difine elements on the page
+    //define elements on the page
     elWrapDays = document.querySelector('#wrapperDays');
     elYear =  document.querySelector('#divYear');
     elMonth = document.querySelector('#divMonth');
@@ -24,114 +24,104 @@ function init(){
     elYear.innerHTML = curYear;
     elMonth.innerHTML = monthsList[curMonth];
 
-    curDaysInMonth = daysInMonth(curMonth, curYear);
-    fillCalendar(curYear, curMonth,curDaysInMonth);
+    // var for counting days in month
+    var firstDay;
+    //var for counting cells in calendar
+    var i; 
 
-    //functions for changing mounth or yeat
+    fillCalendar(curYear, curMonth);
+
+    //functions for changing month or year
     elMonthNext.addEventListener('click', function() {
         monthNextClick();
+        fillCalendar(curYear, curMonth, firstDay, i);
     });
 
     elMonthBack.addEventListener('click', function() {
-        monthBackClick()
+        monthBackClick();
+        fillCalendar(curYear, curMonth, firstDay, i);
     });
 
     elYearNext.addEventListener('click', function() {
-        yearNextClick()
+        yearNextClick();
+        fillCalendar(curYear, curMonth, firstDay, i);
     });
 
     elYearBack.addEventListener('click', function() {
-        yearBackClick()
+        yearBackClick();
+        fillCalendar(curYear, curMonth, firstDay, i);
     });
-};
 
-function daysInMonth(month, year) {
+    addStilyForToday();
+}
+
+function getDaysInMonth(month, year) {
     month = month + 1;
     return new Date(year, month, 0).getDate();
-};
+}
 
-function fillCalendar (year, month, countDays){
+function fillCalendar (year, month, firstDay, i){
+    elWrapDays.innerHTML = '';
+    countDays = getDaysInMonth(curMonth, curYear);
     firstDay = 1;
     i = 0;
-    var pushDate = document.createElement('tr');
-    while (new Date(year, month, firstDay).getDay() > i+1 && i+1 % 7 != 0) {
-        let dateNow = document.createElement('td');
+    pushDate = document.createElement('tr');
+    while (new Date(year, month, firstDay).getDay() > i+1 && i+1 % 7 !== 0) {
+        var dateNow = document.createElement('td');
         pushDate.appendChild(dateNow);
         i++;
-       };
+       }
 
     while (firstDay <= countDays) {
-        if (i % 7 == 0) {
+        if (i % 7 === 0) {
             elWrapDays.appendChild(pushDate);
             var pushDate = document.createElement('tr');
-            let dateNow = document.createElement('td');
+            var dateNow = document.createElement('td');
             pushDate.appendChild(dateNow);
             dateNow.innerHTML = firstDay;
             i++;
             firstDay++;
-        } else {let dateNow = document.createElement('td');
+        } else {var dateNow = document.createElement('td');
             pushDate.appendChild(dateNow);
             dateNow.innerHTML = firstDay;
             i++;
             firstDay++;
-        };
-    } ;
+        }
+    }
 
-    while ( i % 7 != 0) {
-        let dateNow = document.createElement('td');
+    while ( i % 7 !== 0) {
+        var dateNow = document.createElement('td');
         pushDate.appendChild(dateNow);
         i++;
-    };
+    }
     elWrapDays.appendChild(pushDate);
-};
+}
 
 function monthNextClick() {
-    if (curMonth != 11) {
-        curMonth = curMonth + 1;
-        elWrapDays.innerHTML = '';
-        elMonth.innerHTML = monthsList[curMonth];
-        curDaysInMonth = daysInMonth(curMonth, curYear);
-        fillCalendar(curYear, curMonth,curDaysInMonth)
+    if (curMonth !== 11) {
+        curMonth = curMonth + 1; 
     } else { curMonth = 0;
-        elMonth.innerHTML = monthsList[curMonth];
-        curYear = curYear + 1;
-        elYear.innerHTML = curYear;
-        elWrapDays.innerHTML = '';
-        curDaysInMonth = daysInMonth(curMonth, curYear);    
-        fillCalendar(curYear, curMonth,curDaysInMonth);
-    };
-};
+        yearNextClick();
+    }
+    elMonth.innerHTML = monthsList[curMonth];
+}
 
 function monthBackClick() {
-    if (curMonth != 0) {
+    if (curMonth !== 0) {
         curMonth = curMonth - 1;
-        elMonth.innerHTML = monthsList[curMonth];
-        elWrapDays.innerHTML = '';
-        curDaysInMonth = daysInMonth(curMonth, curYear);
-        fillCalendar(curYear, curMonth,curDaysInMonth);
-    } else { curMonth = 11;
-        elMonth.innerHTML = monthsList[curMonth];
-        curYear = curYear - 1;
-        elYear.innerHTML = curYear;
-        elWrapDays.innerHTML = '';
-        curDaysInMonth = daysInMonth(curMonth, curYear);
-        fillCalendar(curYear, curMonth,curDaysInMonth);
-    };
-};
+    } else {
+        curMonth = 11;
+        yearBackClick();
+    }
+    elMonth.innerHTML = monthsList[curMonth];
+}
 
 function yearNextClick() {
     curYear = curYear + 1;
     elYear.innerHTML = curYear;
-    elWrapDays.innerHTML = '';
-    curDaysInMonth = daysInMonth(curMonth, curYear);
-    fillCalendar(curYear, curMonth, curDaysInMonth);
-};
+}
 
 function yearBackClick() {
     curYear = curYear - 1;
     elYear.innerHTML = curYear;
-    elWrapDays.innerHTML = '';
-    curDaysInMonth = daysInMonth(curMonth, curYear);
-    fillCalendar(curYear, curMonth, curDaysInMonth);
-};
-
+}
